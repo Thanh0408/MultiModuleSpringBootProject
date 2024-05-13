@@ -14,3 +14,10 @@
     Modify Name, ... like Step 1
 
 Now I have what I want
+
+# Using database
+> mysql, u do not ussing upper case when create database
+
+# Using Docker to create database
+1. Account database
+    > run docker: docker run --name mysql -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:latest

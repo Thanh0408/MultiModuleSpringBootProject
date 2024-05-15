@@ -14,7 +14,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
@@ -27,10 +29,7 @@ import java.util.Set;
 @Slf4j
 public class ApplicationInitConfig {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    PasswordEncoder passwordEncoder;
 
     @NonFinal
     static final String ADMIN_USER_NAME = "admin";
@@ -52,7 +51,7 @@ public class ApplicationInitConfig {
             if (accountRepository.findByUsername(ADMIN_USER_NAME).isPresent()) {
                 log.warn("Admin account existed!");
             } else {
-                roleRepository.save(Role.builder()
+                roleRepository.saveAndFlush(Role.builder()
                         .name(EnumRole.USER.getCode())
                         .description("User role")
                         .build());
@@ -68,8 +67,8 @@ public class ApplicationInitConfig {
 
                 accountRepository.save(Account.builder()
                         .username(ADMIN_USER_NAME)
-                        .password(passwordEncoder().encode(ADMIN_PASSWORD))
-                        .role(roles)
+                        .password(passwordEncoder.encode(ADMIN_PASSWORD))
+                        .roles(roles)
                         .build());
 
 
@@ -77,5 +76,23 @@ public class ApplicationInitConfig {
             }
             log.info("Application initialization completed .....");
         };
+    }
+
+    /**
+     * Load properties file from another file
+     * @return properties
+     */
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        PropertySourcesPlaceholderConfigurer properties =
+                new PropertySourcesPlaceholderConfigurer();
+        String dir = System.getProperty("user.dir");
+        Resource[] resources = new Resource[ ] {
+                new FileSystemResource(dir + "/authentication-module/prop/config.properties"),
+                new FileSystemResource(dir + "/authentication-module/src/main/resources/application.yaml")
+        };
+        properties.setLocations(resources);
+        properties.setIgnoreResourceNotFound(false);
+        return properties;
     }
 }

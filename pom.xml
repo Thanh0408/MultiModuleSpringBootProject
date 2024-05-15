@@ -9,8 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>authentication-module</module>
         <module>common-module</module>
+        <module>authentication-module</module>
     </modules>
 
     <parent>

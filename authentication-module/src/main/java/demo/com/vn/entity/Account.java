@@ -27,11 +27,9 @@ public class Account extends AbstractAuditEntity {
     @Column(name = "PASSWORD")
     String password;
 
-    //    @Column(name = "ACCESS_TOKEN", columnDefinition = "TEXT")
     @Column(name = "ACCESS_TOKEN")
     String accessToken;
 
-    //    @Column(name = "REFRESH_TOKEN", columnDefinition = "TEXT")
     @Column(name = "REFRESH_TOKEN")
     String refreshToken;
 
@@ -42,6 +40,6 @@ public class Account extends AbstractAuditEntity {
             joinColumns = @JoinColumn(name = "ACCOUNT_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_NAME")
     )
-    Set<Role> role;
+    Set<Role> roles;
 
 }

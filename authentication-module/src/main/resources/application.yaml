@@ -8,14 +8,18 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     dialect: org.hibernate.dialect.MySQL8Dialect
     username: root
-    password: 123456
+    password: ${config.db.root.password}
   jpa:
     hibernate:
       ddl-auto: validate
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         globally_quoted_identifiers: true
 
+jwt:
+  signerKey: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
+  valid-duration: 3600 # in second
+  refreshable-duration: 36000 # in seconds

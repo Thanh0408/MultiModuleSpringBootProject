@@ -23,7 +23,7 @@ public class Role extends AbstractAuditEntity {
     String description;
 
 
-    @ManyToMany(mappedBy = "role")
+    @ManyToMany(mappedBy = "roles")
     List<Account> account;
 
 }

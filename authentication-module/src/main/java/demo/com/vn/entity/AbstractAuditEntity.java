@@ -1,7 +1,6 @@
 package demo.com.vn.entity;
 
 import demo.com.vn.enums.EnumIsDelete;
-import demo.com.vn.listener.AuditorAwareImpl;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;

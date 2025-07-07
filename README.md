@@ -15,9 +15,12 @@
 
 Now I have what I want
 
-# Using database
-> mysql, u do not ussing upper case when create database
-
 # Using Docker to create database
-1. Account database
-    > run docker: docker run --name mysql -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:latest
+1. Build image:
+   > docker build -t custom-mysql .   
+2. Run container
+   > docker run --name my-mysql -p 3307:3306 -d custom-mysql
+3. Stop container
+   > docker stop my-mysql
+4. Start container
+   > docker start my-mysql

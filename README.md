@@ -24,3 +24,9 @@ Now I have what I want
    > docker stop my-mysql
 4. Start container
    > docker start my-mysql
+
+# Jenkins
+1. Run container
+    > docker run -p 9090:8080 -p 50000:50000 jenkins/jenkins:lts
+2. Get password - account: admin (replace jenkins in the command above with the actual container name or ID)
+    > docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
